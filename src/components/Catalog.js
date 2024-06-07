@@ -5,18 +5,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 
 const Catalog = () => {
-    const cardliss = [
-        { title: 'Card 1', description: 'This is card 1.' },
-        { title: 'Card 2', description: 'This is card 2.' },
-        { title: 'Card 3', description: 'This is card 3.' },
-        { title: 'Card 4', description: 'This is card 4.' },
-        { title: 'Card 5', description: 'This is card 5.' },
-        { title: 'Card 6', description: 'This is card 6.' },
-        { title: 'Card 7', description: 'This is card 7.' },
-        { title: 'Card 8', description: 'This is card 8.' },
-      ];
-    
-      const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +18,7 @@ const Catalog = () => {
             sort: '-published_at',
           },
         });
+        console.log(response.data.data); // Debug: Log data yang diambil dari API
         setCards(response.data.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -38,21 +28,27 @@ const Catalog = () => {
     fetchData();
   }, []);
 
-//   console.log(cards)
-
-      return (
-        <div className="container mx-auto p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {cards.map((card, index) => (
-              <div key={index} className="bg-white shadow-md rounded-lg p-4">
-                <img className='w-full h-32 object-cover mb-2 ' src={card.small_image[0].url} alt={card.title} />
-                <h2 className="text-xl font-bold mb-2">{card.title}</h2>
-                <p>{card.description}</p>
-              </div>
-            ))}
+  return (
+    <div className="container mx-auto p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {cards.map((card, index) => (
+          <div key={index} className="bg-white shadow-md rounded-lg p-4">
+            {card.small_image && card.small_image.length > 0 ? (
+              <img
+                className='w-full h-32 object-cover mb-2 rounded-lg'
+                src={card.small_image[0].url}
+                alt={card.title}
+              />
+            ) : (
+              <p>No Image Available</p>
+            )}
+            {/* <h2 className="text-xl font-bold mb-2">{card.title}</h2>
+            <p dangerouslySetInnerHTML={{ __html: card.content }}></p> */}
           </div>
-        </div>
-      );
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default Catalog
+export default Catalog;
