@@ -61,7 +61,7 @@ const Catalog = () => {
   };
 
   return (
-    <div className="container relative mx-auto p-4">
+    <div className="container relative mx-auto -my-5 p-4 ">
       <div className="flex justify-between mb-4">
         <div>
           <label className="mr-2">Sort by:</label>

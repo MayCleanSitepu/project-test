@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <div className="App w-full h-full">
+      <div className="App w-full h-full" >
         <Navbar/>
         <Hero/>
       </div>
